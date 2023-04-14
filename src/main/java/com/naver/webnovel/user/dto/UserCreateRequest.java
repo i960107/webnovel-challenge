@@ -16,11 +16,11 @@ import org.hibernate.validator.constraints.Length;
 @RequiredArgsConstructor
 public class UserCreateRequest {
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexNickName, message = "숫자, 영문자 소문자, 8 ~ 12자리")
+    @Pattern(regexp = ValidationRegex.regexId, message = "숫자, 영문자 소문자, 8 ~ 12자리")
     private final String id;
 
     @NotBlank
-    @Length(max = 100)
+    @Pattern(regexp = ValidationRegex.regexPw, message = "SHA256으로 암호화 필요")
     private String password;
 
     @NotBlank
