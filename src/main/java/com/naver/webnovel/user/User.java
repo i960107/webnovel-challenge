@@ -84,7 +84,7 @@ public class User extends BaseTimeEntity {
 
     @Min(value = 0L)
     @Column
-    private Long keep_ticket;
+    private Long keepTicket;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<KeepTicketPurchase> ticketPurchases;
@@ -102,6 +102,6 @@ public class User extends BaseTimeEntity {
         this.status = Status.ACTIVATED;
         this.views = new ArrayList<>();
         this.cash = 0L;
-        this.keep_ticket = 0L;
+        this.keepTicket = 0L;
     }
 }

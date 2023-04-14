@@ -1,8 +1,10 @@
 package com.naver.webnovel.user;
 
+import com.naver.webnovel.base.exception.BaseException;
 import com.naver.webnovel.user.dto.UserCreateRequest;
 import com.naver.webnovel.user.dto.UserCreateResponse;
 import java.net.URI;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,8 @@ public class UserController {
     private final UserProvider userProvider;
 
     @PostMapping
-    public ResponseEntity<UserCreateResponse> createUser(@RequestBody UserCreateRequest requestDto) {
+    public ResponseEntity<UserCreateResponse> createUser(@Valid @RequestBody UserCreateRequest requestDto)
+            throws BaseException {
         UserCreateResponse responseDto = userService.createUser(requestDto);
 
         HttpHeaders header = new HttpHeaders();
@@ -27,6 +30,6 @@ public class UserController {
         URI uri = UriComponentsBuilder.fromUriString("/users" + responseDto.getIdx()).build().toUri();
         header.setLocation(uri);
 
-        return new ResponseEntity<UserCreateResponse>(responseDto, header, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseDto, header, HttpStatus.CREATED);
     }
 }

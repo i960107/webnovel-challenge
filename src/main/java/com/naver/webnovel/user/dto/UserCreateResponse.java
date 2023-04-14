@@ -2,6 +2,7 @@ package com.naver.webnovel.user.dto;
 
 import com.naver.webnovel.user.User;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,12 +16,14 @@ public class UserCreateResponse {
     private LocalDate birthDate;
     private String gender;
     private Long cash;
-    private Long keep_ticket;
+    private Long keepTicket;
     private String status;
+    private LocalDateTime createdAt;
 
     @Builder
     private UserCreateResponse(Long idx, String id, String nickname, String name, String phone,
-                              LocalDate birthDate, String gender, Long cash, Long keep_ticket, String status) {
+                               LocalDate birthDate, String gender, Long cash, Long keepTicket, LocalDateTime createdAt,
+                               String status) {
         this.idx = idx;
         this.id = id;
         this.nickname = nickname;
@@ -29,15 +32,23 @@ public class UserCreateResponse {
         this.birthDate = birthDate;
         this.gender = gender;
         this.cash = cash;
-        this.keep_ticket = keep_ticket;
+        this.keepTicket = keepTicket;
+        this.createdAt = createdAt;
         this.status = status;
     }
 
-    public static UserCreateResponse fromEntity(User user){
+    public static UserCreateResponse fromEntity(User user) {
         return UserCreateResponse.builder()
                 .idx(user.getIdx())
                 .id(user.getId())
                 .name(user.getName())
+                .phone(user.getPhone())
+                .birthDate(user.getBirthDate())
+                .gender(user.getGender().name())
+                .createdAt(user.getCreatedAt())
+                .cash(user.getCash())
+                .keepTicket(user.getKeepTicket())
+                .status(user.getStatus().name())
                 .build();
 
     }
