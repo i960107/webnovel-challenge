@@ -1,11 +1,9 @@
-package com.naver.webnovel.purchase.keep;
+package com.naver.webnovel.purchase.keep_ticket;
 
 import com.naver.webnovel.base.BaseTimeEntity;
 import com.naver.webnovel.base.PurchaseStatus;
-import com.naver.webnovel.novel.novel_episode.NovelEpisode;
 import com.naver.webnovel.user.User;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -16,16 +14,10 @@ import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
 
-@Entity
-public class Keep extends BaseTimeEntity {
+public class KeepTicketPurchase extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "episode_idx", nullable = false)
-    private NovelEpisode episode;
 
     @NotNull
     @ManyToOne
@@ -33,18 +25,22 @@ public class Keep extends BaseTimeEntity {
     private User user;
 
     @NotNull
-    @Column(name = "ticket_used", nullable = false)
-    private Integer ticketUsed;
+    @Column(name = "ticket_count", nullable = false)
+    private Long ticketCount;
+
+    @NotNull
+    @Column(name = "cash_used", nullable = false)
+    private Long cashUsed;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private PurchaseStatus status;
 
     @Builder
-    public Keep(NovelEpisode episode, User user, Integer ticketUsed) {
-        this.episode = episode;
+    public KeepTicketPurchase(final User user, final Long ticketCount, final Long cashUsed) {
         this.user = user;
-        this.ticketUsed = ticketUsed;
+        this.ticketCount = ticketCount;
+        this.cashUsed = cashUsed;
         this.status = PurchaseStatus.PENDING;
     }
 }

@@ -1,10 +1,9 @@
-package com.naver.webnovel.purchase.keep;
+package com.naver.webnovel.user_view;
 
 import com.naver.webnovel.base.BaseTimeEntity;
-import com.naver.webnovel.base.PurchaseStatus;
-import com.naver.webnovel.novel.novel_episode.NovelEpisode;
+import com.naver.webnovel.base.Status;
+import com.naver.webnovel.novel.novel_page.NovelPage;
 import com.naver.webnovel.user.User;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,15 +16,15 @@ import lombok.Builder;
 import org.springframework.data.annotation.Id;
 
 @Entity
-public class Keep extends BaseTimeEntity {
+public class View extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "episode_idx", nullable = false)
-    private NovelEpisode episode;
+    @JoinColumn(name = "page_idx", nullable = false)
+    private NovelPage page;
 
     @NotNull
     @ManyToOne
@@ -33,18 +32,12 @@ public class Keep extends BaseTimeEntity {
     private User user;
 
     @NotNull
-    @Column(name = "ticket_used", nullable = false)
-    private Integer ticketUsed;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private PurchaseStatus status;
+    private Status status;
 
     @Builder
-    public Keep(NovelEpisode episode, User user, Integer ticketUsed) {
-        this.episode = episode;
+    public View(NovelPage page, User user) {
+        this.page = page;
         this.user = user;
-        this.ticketUsed = ticketUsed;
-        this.status = PurchaseStatus.PENDING;
     }
 }
