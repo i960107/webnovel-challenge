@@ -1,4 +1,4 @@
-package com.naver.webnovel.purchase;
+package com.naver.webnovel.base;
 
 public class Terms {
     public static final int CASH_PER_KEEP_TICKET = 100;

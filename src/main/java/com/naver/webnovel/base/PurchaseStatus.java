@@ -1,4 +1,4 @@
-package com.naver.webnovel.purchase;
+package com.naver.webnovel.base;
 
 public enum PurchaseStatus {
     PENDING("pending"),
