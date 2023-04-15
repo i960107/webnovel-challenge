@@ -17,15 +17,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Getter
@@ -35,17 +35,17 @@ public class User extends BaseTimeEntity {
     private Long idx;
 
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexNickName, message = "숫자, 영문자 소문자, 8 ~ 12자리")
+    @Pattern(regexp = ValidationRegex.regexId)
     @Column(name = "id", length = 20, nullable = false)
     private String id;
 
     @NotBlank
-    @Length(max = 100)
+    @Pattern(regexp = ValidationRegex.regexPw)
     @Column(name = "password", length = 100, nullable = false)
     private String password;
 
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexNickName, message = "숫자, 영문자 소문자, _, 4~ 10자리")
+    @Pattern(regexp = ValidationRegex.regexNickName)
     @Column(name = "nickname", length = 10, nullable = false)
     private String nickname;
 
@@ -55,7 +55,7 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @NotBlank
-    @Length(max = 15)
+    @Pattern(regexp = ValidationRegex.regexPhone)
     @Column(name = "phone", length = 15, nullable = false)
     private String phone;
 
@@ -78,11 +78,11 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Keep> keeps;
 
-    @Min(value = 0L)
+    @PositiveOrZero
     @Column
     private Long cash;
 
-    @Min(value = 0L)
+    @PositiveOrZero
     @Column
     private Long keepTicket;
 

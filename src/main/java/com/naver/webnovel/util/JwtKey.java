@@ -23,8 +23,8 @@ public class JwtKey {
 
     static {
         SECRET_KEY_SET = new HashMap<>();
-        for (Object obj : env.getProperty("security.secret.jwt.keys", List.class)) {
-            Map<String, String> map = (Map<String, String>) obj;
+        List<Map<String, String>> properties = env.getProperty("security.secret.jwt.keys", List.class);
+        for (Map<String, String> map : properties) {
             String keyId = map.get("keyId");
             Key secretKey = Keys.hmacShaKeyFor(map.get("secretKey").getBytes(StandardCharsets.UTF_8));
             SECRET_KEY_SET.put(keyId, secretKey);

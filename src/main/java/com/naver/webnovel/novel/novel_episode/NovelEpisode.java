@@ -7,6 +7,7 @@ import com.naver.webnovel.novel.novel_page.NovelPage;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -21,13 +22,14 @@ import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
+@Entity
 public class NovelEpisode extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @ManyToOne
     @NotNull
+    @ManyToOne
     @JoinColumn(name = "novel_idx", nullable = false)
     private Novel novel;
 

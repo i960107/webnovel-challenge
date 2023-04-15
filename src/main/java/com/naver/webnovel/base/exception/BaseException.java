@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class BaseException extends Exception {
-    private BaseResponseStatus status;
+    private final BaseResponseStatus status;
+
+    public BaseException(BaseResponseStatus status) {
+        this.status = status;
+    }
 }

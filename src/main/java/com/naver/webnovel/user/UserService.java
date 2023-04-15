@@ -14,11 +14,11 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserCreateResponse createUser(UserCreateRequest requestDto) throws BaseException {
-        if (userRepository.findByIdAndStatus(requestDto.getId(), Status.ACTIVATED).isPresent()) {
+        if (userRepository.existsByIdAndStatus(requestDto.getId(), Status.ACTIVATED)) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_ID);
         }
 
-        if (userRepository.findByPhoneAndStatus(requestDto.getPhone(), Status.ACTIVATED).isPresent()) {
+        if (userRepository.existsByPhoneAndStatus(requestDto.getPhone(), Status.ACTIVATED)) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_PHONE);
         }
 

@@ -42,6 +42,7 @@ public class UserCreateResponse {
                 .idx(user.getIdx())
                 .id(user.getId())
                 .name(user.getName())
+                .nickname(user.getNickname())
                 .phone(user.getPhone())
                 .birthDate(user.getBirthDate())
                 .gender(user.getGender().name())

@@ -20,7 +20,7 @@ public enum BaseResponseStatus {
     UNAUTHORIZED(false, 4004, "권한이 없는 유저입니다."),
 
     // user 관련 오류(4011~4020)
-    DUPLICATE_ID(false, 4010, "이미 등록된 이메일 입니다."),
+    DUPLICATE_ID(false, 4010, "이미 등록된 아이디 입니다."),
 
     DUPLICATE_PHONE(false, 4011, "이미 등록된 휴대폰 번호 입니다."),
 

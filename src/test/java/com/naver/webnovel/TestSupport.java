@@ -1,5 +1,9 @@
 package com.naver.webnovel;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import io.micrometer.core.instrument.util.IOUtils;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,10 +21,12 @@ import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 @ExtendWith(RestDocumentationExtension.class)
 @Import(RestDocsConfiguration.class)
 public class TestSupport {

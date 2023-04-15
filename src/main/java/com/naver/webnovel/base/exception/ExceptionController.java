@@ -18,7 +18,7 @@ public class ExceptionController {
     public ResponseEntity<BaseExceptionResponse> handleBaseException(BaseException exception) {
         int code = exception.getStatus().getCode();
         HttpStatus status;
-        if (code >= 4001 && code <= 4010) {
+        if (code >= 4001 && code < 4010) {
             status = HttpStatus.UNAUTHORIZED;
         } else if (code >= 4000 && code < 5000) {
             status = HttpStatus.BAD_REQUEST;
