@@ -5,6 +5,7 @@ import com.naver.webnovel.base.exception.BaseException;
 import com.naver.webnovel.base.exception.BaseResponseStatus;
 import com.naver.webnovel.user.dto.UserCreateRequest;
 import com.naver.webnovel.user.dto.UserCreateResponse;
+import com.naver.webnovel.user.dto.UserLoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +27,5 @@ public class UserService {
 
         return UserCreateResponse.fromEntity(user);
     }
+
 }

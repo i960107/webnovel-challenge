@@ -1,5 +1,6 @@
 package com.naver.webnovel.user;
 
+import com.naver.webnovel.author.Author;
 import com.naver.webnovel.base.BaseTimeEntity;
 import com.naver.webnovel.base.Gender;
 import com.naver.webnovel.base.Status;
@@ -18,17 +19,21 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,10 +78,13 @@ public class User extends BaseTimeEntity {
     private Status status;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<View> views;
+    private List<View> views = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Keep> keeps;
+    private List<Keep> keeps = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    private Author author;
 
     @PositiveOrZero
     @Column
@@ -87,7 +95,7 @@ public class User extends BaseTimeEntity {
     private Long keepTicket;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<KeepTicketPurchase> ticketPurchases;
+    private List<KeepTicketPurchase> ticketPurchases = new ArrayList<>();
 
     @Builder
     public User(final String id, final String password, final String nickname, final String name, final String phone,
@@ -100,8 +108,13 @@ public class User extends BaseTimeEntity {
         this.birthDate = birthDate;
         this.gender = gender;
         this.status = Status.ACTIVATED;
+        this.author = null;
         this.views = new ArrayList<>();
         this.cash = 0L;
         this.keepTicket = 0L;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

@@ -1,0 +1,17 @@
+[[Author-API]]
+== Author API
+
+[[Author-단일-조회]]
+=== Author 단일 조회
+
+operation::author-controller-test/retrieve_author_test[snippets= 'http-request,request-headers,path-parameters,http-response,response-fields']
+
+[[Author-등록]]
+=== Author 등록
+
+operation::author-controller-test/create_author_test[snippets= 'http-request,request-headers,request-fields,http-response,response-fields']
+
+[[Author-로그인]]
+=== Author 로그인
+
+operation::author-controller-test/author_login_test[snippets= 'http-request,request-headers,request-fields,http-response,response-fields']
