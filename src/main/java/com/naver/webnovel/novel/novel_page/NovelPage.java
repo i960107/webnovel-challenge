@@ -4,6 +4,7 @@ import com.naver.webnovel.base.BaseTimeEntity;
 import com.naver.webnovel.base.Status;
 import com.naver.webnovel.novel.novel_episode.NovelEpisode;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
+
+@Entity
 public class NovelPage extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

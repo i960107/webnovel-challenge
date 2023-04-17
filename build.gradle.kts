@@ -41,6 +41,8 @@ dependencies {
 
     //lombok
     implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
 
     //jwt
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")

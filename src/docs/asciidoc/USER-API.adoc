@@ -1,0 +1,17 @@
+[[User-API]]
+== User API
+
+[[User-단일-조회]]
+=== User 단일 조회
+
+operation::user-controller-test/retrieve_user_test[snippets= 'http-request,request-headers,path-parameters,http-response,response-fields']
+
+[[User-등록]]
+=== User 등록
+
+operation::user-controller-test/create_user_test[snippets= 'http-request,request-fields,http-response,response-fields']
+
+[[User-로그인]]
+=== User 로그인
+
+operation::user-controller-test/login_test[snippets= 'http-request,request-fields,http-response,response-fields']

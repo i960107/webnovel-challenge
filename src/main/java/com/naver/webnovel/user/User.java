@@ -1,5 +1,6 @@
 package com.naver.webnovel.user;
 
+import com.naver.webnovel.author.Author;
 import com.naver.webnovel.base.BaseTimeEntity;
 import com.naver.webnovel.base.Gender;
 import com.naver.webnovel.base.Status;
@@ -17,35 +18,39 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexNickName, message = "숫자, 영문자 소문자, 8 ~ 12자리")
+    @Pattern(regexp = ValidationRegex.regexId)
     @Column(name = "id", length = 20, nullable = false)
     private String id;
 
     @NotBlank
-    @Length(max = 100)
+    @Pattern(regexp = ValidationRegex.regexPw)
     @Column(name = "password", length = 100, nullable = false)
     private String password;
 
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexNickName, message = "숫자, 영문자 소문자, _, 4~ 10자리")
+    @Pattern(regexp = ValidationRegex.regexNickName)
     @Column(name = "nickname", length = 10, nullable = false)
     private String nickname;
 
@@ -55,7 +60,7 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @NotBlank
-    @Length(max = 15)
+    @Pattern(regexp = ValidationRegex.regexPhone)
     @Column(name = "phone", length = 15, nullable = false)
     private String phone;
 
@@ -73,21 +78,24 @@ public class User extends BaseTimeEntity {
     private Status status;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<View> views;
+    private List<View> views = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Keep> keeps;
+    private List<Keep> keeps = new ArrayList<>();
 
-    @Min(value = 0L)
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    private Author author;
+
+    @PositiveOrZero
     @Column
     private Long cash;
 
-    @Min(value = 0L)
+    @PositiveOrZero
     @Column
     private Long keepTicket;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<KeepTicketPurchase> ticketPurchases;
+    private List<KeepTicketPurchase> ticketPurchases = new ArrayList<>();
 
     @Builder
     public User(final String id, final String password, final String nickname, final String name, final String phone,
@@ -100,8 +108,13 @@ public class User extends BaseTimeEntity {
         this.birthDate = birthDate;
         this.gender = gender;
         this.status = Status.ACTIVATED;
+        this.author = null;
         this.views = new ArrayList<>();
         this.cash = 0L;
         this.keepTicket = 0L;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

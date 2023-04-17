@@ -1,0 +1,29 @@
+[[overview]]
+== Overview
+
+[[overview-host]]
+=== Host
+
+|===
+| 환경 | Host
+
+| Sandbox
+| 210.89.190.208
+
+| Production
+|
+|===
+
+[[overview-http-status-codes]]
+=== HTTP status codes
+
+|===
+|Status code | Usage
+
+| '200 OK' | successfully
+
+| '400 Bad Request' | Bad Request
+
+| '500 Internal Server Error' | Server Error
+|===
+

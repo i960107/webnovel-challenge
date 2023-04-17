@@ -4,7 +4,6 @@ import com.naver.webnovel.base.Gender;
 import com.naver.webnovel.base.ValidationRegex;
 import com.naver.webnovel.user.User;
 import java.time.LocalDate;
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -16,31 +15,31 @@ import org.hibernate.validator.constraints.Length;
 @RequiredArgsConstructor
 public class UserCreateRequest {
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexId, message = "숫자, 영문자 소문자, 8 ~ 12자리")
+    @Pattern(regexp = ValidationRegex.regexId, message = ValidationRegex.regexIdMessage)
     private final String id;
 
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexPw, message = "SHA256으로 암호화 필요")
-    private String password;
+    @Pattern(regexp = ValidationRegex.regexPw, message = ValidationRegex.regexPwMessage)
+    private final String password;
 
     @NotBlank
-    @Pattern(regexp = ValidationRegex.regexNickName, message = "숫자, 영문자 소문자, _, 4~ 10자리")
-    private String nickname;
+    @Pattern(regexp = ValidationRegex.regexNickName, message = ValidationRegex.regexNickNameMessage)
+    private final String nickname;
 
     @NotBlank
     @Length(max = 30)
-    private String name;
+    private final String name;
 
     @NotBlank
-    @Length(max = 15)
-    private String phone;
+    @Pattern(regexp = ValidationRegex.regexPhone, message = ValidationRegex.regexPhoneMessage)
+    private final String phone;
 
     @NotNull
-    @Column(name = "birthdate", nullable = false)
-    private LocalDate birthDate;
+    private final LocalDate birthDate;
 
     @NotNull
-    private String gender;
+    @Pattern(regexp = ValidationRegex.regexGender, message = ValidationRegex.regexGenderMessage)
+    private final String gender;
 
     public User toEntity() {
         return User.builder()
@@ -50,7 +49,7 @@ public class UserCreateRequest {
                 .name(name)
                 .phone(phone)
                 .birthDate(birthDate)
-                .gender(Gender.valueOf(gender))
+                .gender(Enum.valueOf(Gender.class, gender))
                 .build();
     }
 }

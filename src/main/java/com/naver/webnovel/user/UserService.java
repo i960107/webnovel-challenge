@@ -5,6 +5,7 @@ import com.naver.webnovel.base.exception.BaseException;
 import com.naver.webnovel.base.exception.BaseResponseStatus;
 import com.naver.webnovel.user.dto.UserCreateRequest;
 import com.naver.webnovel.user.dto.UserCreateResponse;
+import com.naver.webnovel.user.dto.UserLoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,11 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserCreateResponse createUser(UserCreateRequest requestDto) throws BaseException {
-        if (userRepository.findByIdAndStatus(requestDto.getId(), Status.ACTIVATED).isPresent()) {
+        if (userRepository.existsByIdAndStatus(requestDto.getId(), Status.ACTIVATED)) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_ID);
         }
 
-        if (userRepository.findByPhoneAndStatus(requestDto.getPhone(), Status.ACTIVATED).isPresent()) {
+        if (userRepository.existsByPhoneAndStatus(requestDto.getPhone(), Status.ACTIVATED)) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_PHONE);
         }
 
@@ -26,4 +27,5 @@ public class UserService {
 
         return UserCreateResponse.fromEntity(user);
     }
+
 }
